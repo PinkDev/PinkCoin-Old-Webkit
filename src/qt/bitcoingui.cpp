@@ -358,6 +358,7 @@ void BitcoinGUI::createMenuBar()
 void BitcoinGUI::createToolBars()
 {
     QToolBar *toolbar = addToolBar(tr("Tabs toolbar"));
+
     toolbar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     toolbar->addAction(overviewAction);
     toolbar->addAction(walletPinkAction);
@@ -366,8 +367,13 @@ void BitcoinGUI::createToolBars()
     toolbar->addAction(historyAction);
     toolbar->addAction(addressBookAction);
     toolbar->addAction(explorerPageAction);
-    QToolBar *toolbar2 = addToolBar(tr("Actions toolbar"));
-    toolbar2->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+
+    toolbar->setSizePolicy(QSizePolicy::Expanding,
+                           QSizePolicy::Expanding);
+    //Taking out actions bar. Export is a waste of space and accessable from the top menu.
+    //
+    //QToolBar *toolbar2 = addToolBar(tr("Actions toolbar"));
+    //toolbar2->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     //toolbar2->addAction(exportAction);
 }
 
