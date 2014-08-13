@@ -14,12 +14,12 @@ ExplorerPage::ExplorerPage(QWidget *parent) :
     ui(new Ui::ExplorerPage)
 {
     ui->setupUi(this);
-    QWebView *view = new QWebView(ui->xView);;
-    view->load(QUrl("http://chainz.cryptoid.info/pc/"));
+    // QWebView *view = new QWebView(ui->xView);
+    ui->xView->load(QUrl("http://chainz.cryptoid.info/pc/"));
     QEventLoop loop;
-    connect(view,SIGNAL(loadFinished(bool)),&loop,SLOT(quit()));
+    connect(ui->xView,SIGNAL(loadFinished(bool)),&loop,SLOT(quit()));
     loop.exec();
-    QWebFrame *frame = view->page()->mainFrame();
+    QWebFrame *frame = ui->xView->page()->mainFrame();
     QWebElement document = frame->documentElement();
     QWebElement element = document.findFirst("body");
     element.setAttribute("style", "background-color: #302F2F;color: #dd37b6;");
@@ -43,5 +43,4 @@ ExplorerPage::~ExplorerPage()
 void ExplorerPage::setModel(WalletModel *model)
 {
     this->model = model;
-
 }
