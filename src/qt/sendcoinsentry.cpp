@@ -71,13 +71,18 @@ void SendCoinsEntry::on_walletPinkButton_clicked()
             if(newAddress == ""){
                 ui->payTo->setAPIValid(false);
                 return;
-            } else {
+            } else if( newAddress.length() >= 27 && newAddress.length() <= 34 ) {
                ui->payTo->setText(newAddress);
                ui->payTo->setAPIValid(true);
+               return;
+            } else {
+                ui->payTo->setText("APIerror");
+                ui->payTo->setAPIValid(false);
             }
         }
     } else {
      ui->payTo->setValid(false);
+     return;
     }
 }
 
