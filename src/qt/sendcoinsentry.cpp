@@ -23,7 +23,7 @@ SendCoinsEntry::SendCoinsEntry(QWidget *parent) :
 #if QT_VERSION >= 0x040700
     /* Do not move this to the XML file, Qt before 4.7 will choke on it */
     ui->addAsLabel->setPlaceholderText(tr("Enter a label for this address to add it to your address book"));
-    ui->payTo->setPlaceholderText(tr("Enter a pinkcoin address (e.g. pinkcoinfwYhBmGXcFP2Po1NpRUEiK8km2)"));
+    ui->payTo->setPlaceholderText(tr("Enter a pinkcoin address, username, or email address (e.g. pinkcoinfwYhBmGXcFP2Po1NpRUEiK8km2)"));
 #endif
     setFocusPolicy(Qt::TabFocus);
     setFocusProxy(ui->payTo);
@@ -60,18 +60,22 @@ void SendCoinsEntry::on_walletPinkButton_clicked()
     if(ui->payTo->text() != ""){
         QString newAddress = "";
         QNetworkAccessManager *netman = new QNetworkAccessManager();
-        QNetworkRequest netRequest(QUrl("http://162.243.116.35/api/query/"+ui->payTo->text()));
+        QNetworkRequest netRequest(QUrl("https://wallet.pink/api/query/"+ui->payTo->text()));
         QNetworkReply *netReply = netman->get(netRequest);
         QEventLoop loop;
         connect(netReply, SIGNAL(finished()), &loop, SLOT(quit()));
         loop.exec();
         netReply->waitForReadyRead(-1);
-        if (netReply->isFinished()==true)
+        if (netReply->isFinished()==true){
             newAddress = netReply->readAll();
-        if(newAddress == "")
-            ui->payTo->setValid(false);
-            return;
-        ui->payTo->setText(newAddress);
+            if(newAddress == ""){
+                ui->payTo->setAPIValid(false);
+                return;
+            } else {
+               ui->payTo->setText(newAddress);
+               ui->payTo->setAPIValid(true);
+            }
+        }
     } else {
      ui->payTo->setValid(false);
     }

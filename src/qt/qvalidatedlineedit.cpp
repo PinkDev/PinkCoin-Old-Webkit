@@ -26,6 +26,19 @@ void QValidatedLineEdit::setValid(bool valid)
     this->valid = valid;
 }
 
+void QValidatedLineEdit::setAPIValid(bool valid){
+    if(valid)
+    {
+        setStyleSheet(STYLE_VALID);
+    }
+    else
+    {
+        setStyleSheet(STYLE_INVALID);
+    }
+    this->valid = valid;
+    return;
+}
+
 void QValidatedLineEdit::focusInEvent(QFocusEvent *evt)
 {
     // Clear invalid flag on focus

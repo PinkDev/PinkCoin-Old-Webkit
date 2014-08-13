@@ -12,7 +12,7 @@
   - 'l' and 'I' to '1'
   - '0' and 'O' to 'o'
 
-   Adding custom lookups for Pink Address Engine
+   Adding custom lookups for Pink Address Engine to allow Ii 0Oo and . @
 */
 
 BitcoinAddressValidator::BitcoinAddressValidator(QObject *parent) :
@@ -55,11 +55,11 @@ QValidator::State BitcoinAddressValidator::validate(QString &input, int &pos) co
     for(int idx=0; idx<input.size(); ++idx)
     {
         int ch = input.at(idx).unicode();
-
+        // Due to addresses and usernames, we are now allowing full azAZ09 with @ and .
         if(((ch >= '0' && ch<='9') ||
            (ch >= 'a' && ch<='z') ||
-           (ch >= 'A' && ch<='Z') || ch=='@' || ch=='.') &&
-           ch != 'l' && ch != 'I' && ch != '0' && ch != 'O')
+           (ch >= 'A' && ch<='Z') ||
+            ch=='@' || ch=='.'))
         {
             // Alphanumeric and not a 'forbidden' character
         }

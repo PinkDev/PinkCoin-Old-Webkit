@@ -126,7 +126,7 @@ OverviewPage::OverviewPage(QWidget *parent) :
     //element.setAttribute("style", "display: none;");
 
     //The old way
-    ui->tView->load(QUrl("https://m.twitter.com"));
+    ui->tView->load(QUrl("https://m.twitter.com/Pinkcoin_"));
 
     // start with displaying the "out of sync" warnings
     showOutOfSyncWarning(true);

@@ -21,7 +21,7 @@ private:
 
 public slots:
     void setValid(bool valid);
-
+    void setAPIValid(bool valid);
 private slots:
     void markValid();
 };
